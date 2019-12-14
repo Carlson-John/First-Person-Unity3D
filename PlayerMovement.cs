@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour
         ///Our GameObject(CharacterController) Our Target (character_Controller)
 
     private Vector3 move_Direction = Vector3.zero; ///Built in function that Unity provides to move the direction of the player
-
-    public float speed = 6.0f;   ///Default parameters 
+    
+    
+    public float jump_Speed = 8.0f; ///Since both Jump speed and speed are public variables you can edit them inside Unity
+    public float speed = 6.0f;   
+    
     private float gravity = 20f;
-    public float jump_Speed = 8.0f;
     private float vertical_Velocity;
 
 

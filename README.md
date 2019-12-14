@@ -1,5 +1,5 @@
 # First-Person-Unity3D
-This project includes Player control/movement scripts for the Unity Engine
+This project includes Player control/movement script for the Unity Engine
 
 
 

@@ -5,70 +5,29 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private CharacterController character_Controller; ///Character Controller is a built in function unity offers that you can add to your player. Its function is to move the character around the enviroment 
-        ///Our GameObject(CharacterController) Our Target (character_Controller)
 
-    private Vector3 move_Direction = Vector3.zero; ///Built in function that Unity provides to move the direction of the player
-
-    public float speed = 6.0f;   ///Default parameters 
-    private float gravity = 20f;
-    public float jump_Speed = 8.0f;
-    private float vertical_Velocity;
+    public float speed = 10.0F;
 
 
-    public class Axis
+
+    void Start ()
     {
-        public const string HORIZONTAL = "Horizontal";
-        public const string VERTICAL = "Vertical";
+
+        Cursor.lockstate = CursorLockMode.Locked;
     }
 
-    public class MouseAxis
+    void Update ()
     {
-        public const string MOUSE_X = "Mouse X";
-        public const string MOUSE_Y = "Mouse Y";
-    }
+        float translation = Input.GetAxis("Vertical") * speed;
+        float straffe = Input.GetAxis("Horizontal") * speed;
+        translation *= Time.deltaTime;
+        straffe *= Time.deltaTime;
+
+        transform.Translate(straffe, 0, translation);
+        if (Input.GetKeyDown("escape"))
+            Cursor.lockstate = CursorLockMode.None;
 
 
-
-
-    void Start()
-    {
-        character_Controller = GetComponent<CharacterController>(); //Starts the controller script here
-    }
-
-    void Update()
-    {
-        
-        move_Direction = new Vector3(Input.GetAxis(Axis.HORIZONTAL), 0.0f,Input.GetAxis(Axis.VERTICAL));   ///This gets the direction of the Horizontal and Vertical axis which will move the charcter
-        move_Direction = transform.TransformDirection(move_Direction);  ///Transform the Direction of the built in (move_Direction) funciton provided by Unity
-        move_Direction *= speed * Time.deltaTime;   ///Mutliples speed *time.deltaTime
-
-        ApplyGravity();   ///Starts the Void ApplyGravity function to all the user inputs.
-
-        character_Controller.Move(move_Direction);  ///Moves the character in the direction the users requests 
 
     }
-
-    void ApplyGravity()   ///ApplyGravity function starts here
-    {
-
-        vertical_Velocity -= gravity * Time.deltaTime;  ///Gravity times Time.deltatime.
-
-        // jump
-        PlayerJump();
-
-        move_Direction.y = vertical_Velocity * Time.deltaTime;  ///Moves the character if PlayerJump is triggered.
-
-    } 
-
-    void PlayerJump()   ///PlayerJump Function
-    {
-
-        if (character_Controller.isGrounded && Input.GetKeyDown(KeyCode.Space))  ///If the characterController is Grounded and the the inputKey is being pressed(space bar on keyboard)
-        {
-            vertical_Velocity = jump_Speed;   ///Then excute the vertical velocity of the jump speed
-        }
-
-    }
-
 }
